@@ -1,0 +1,10 @@
+.MainPage{
+  display: flex;
+  flex-direction: column;
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
