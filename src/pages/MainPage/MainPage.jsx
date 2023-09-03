@@ -1,27 +1,44 @@
-import React, { useState } from 'react'
-import { getDataOnSentence, getDataOnWords } from '../../app/configs/ReceiveData'
+import React, { useState, useEffect } from 'react'
+import { useGetTextQuery } from '../../app/configs/ReceiveData'
 import './MainPage.scss'
+import MainSettings from './MainSettings'
+import MainForm from './MainForm'
 
 const MainPage = () => {
   const [text, setText] = useState('')
+  const [count, setCount] = useState(10)
+  const [textLength, setTextLength] = useState(0)
+  const { data = {}, isLoading } = useGetTextQuery(count)
+
+  const currentText = 'АБв576'
+
+  useEffect(() => {
+    if (textLength === 0) {
+      setText(data.text)
+    }
+    else {
+      const sentences = data.text.split(' ').slice(0, textLength)
+      setText(sentences.join(' '))
+    }
+  }, [data])
+
 
   async function setTextForTest(action, number) {
     if (action === 'sentence') {
-      setText(await getDataOnSentence(number))
+      setCount(number)
+      setTextLength(0)
     }
     else if (action === 'words') {
-      setText(await getDataOnWords(number))
+      setCount(100)
+      setTextLength(number)
     }
   }
 
   return (
-    <div className='MainPage'>
-      <div className="MainPage__buttons">
-        <button onClick={() => setTextForTest('sentence', 1)}>getDataOnSentence</button>
-        <button onClick={() => setTextForTest('words', 10)}>getDataOnWords</button>
-      </div>
-      <p>{text}</p>
-    </div >
+    <section className='MainPage'>
+      <MainSettings setTextForTest={setTextForTest} />
+      <MainForm currentText={text} />
+    </section >
   )
 }
 

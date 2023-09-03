@@ -1,0 +1,16 @@
+@import '../../app/configs/colors.scss';
+
+.error{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &__text {
+    color: $white;
+    text-align: center;
+  }
+}

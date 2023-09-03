@@ -1,0 +1,79 @@
+@import './app/configs/colors.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  color: $white;
+
+  &::-moz-selection {
+    background-color: $dark__gray;
+  }
+
+  &::selection {
+    background-color: $dark__gray;
+  }
+}
+
+body {
+  background-color: $black;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+input {
+  background-color: $gray;
+  color: black;
+}
+
+.arrow {
+
+  &_active,
+  &_inactive {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-top: 0.1rem solid $white;
+    border-right: 0.1rem solid white;
+    margin-right: 1rem;
+  }
+
+  &_active {
+    transform: rotate(135deg);
+    animation: setActive 0.4s;
+  }
+
+  &_inactive {
+    transform: rotate(45deg);
+    animation: setInactive 0.4s;
+  }
+}
+
+@keyframes setActive {
+  0% {
+    transform: rotate(45deg);
+  }
+
+  100% {
+    transform: rotate(135deg);
+  }
+}
+
+@keyframes setInactive {
+  0% {
+    transform: rotate(135deg);
+  }
+
+  100% {
+    transform: rotate(45deg);
+  }
+}

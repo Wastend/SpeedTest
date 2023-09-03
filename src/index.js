@@ -1,8 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import { Provider } from 'react-redux'
+import { store } from './app/data/store'
+import './index.scss'
 import App from './App'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <App />
+  <Provider store={store}>
+    <App />
+  </Provider>
 )

@@ -17,6 +17,9 @@ function App() {
 
           </Route>
         </Route>
+        <Route
+          path='*'
+          element={<pages.ErrorPage />} />
       </Routes>
     </BrowserRouter>
   )
