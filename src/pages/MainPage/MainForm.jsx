@@ -7,25 +7,24 @@ const MainForm = (props) => {
   const [unwrittenText, setUnwrittenText] = useState('')
 
   useEffect(() => {
-    if(props.text !== '' && props.text !== undefined) {
-      console.log(props.text);
-      const words = props.text.split(' ')
-      const firstPart = words.slice(0, props.countCurrentElement+1)
-      setEnteredText(words.slice(0, props.countCurrentElement).join(' '))
+    if (props.text !== '' && props.text !== undefined) {
+      const elements = props.text.split('')
+      setEnteredText(elements.slice(0, props.countCurrentElement).join(''))
       setCurrentElement(props.text[props.countCurrentElement])
-      setUnwrittenText(words.slice(props.countCurrentElement + 1, words.length).join(' '))
+      setUnwrittenText(elements.slice(props.countCurrentElement + 1, elements.length).join(''))
     }
   }, [props.text, props.countCurrentElement])
 
-  const escFunction = useCallback((event) => {
+  const escFunction = (event => {
+
+    
     if (event.key === currentElement) {
-      props.setCountCurrentElement(+props.countCurrentElement)
+      props.setCountCurrentElement(props.countCurrentElement+1)
     }
-  }, [])
+  })
 
   useEffect(() => {
     document.addEventListener("keydown", escFunction, false)
-
     return () => {
       document.removeEventListener("keydown", escFunction, false)
     }
@@ -34,8 +33,8 @@ const MainForm = (props) => {
   return (
     <section className='MainForm'>
       <p className="MainForm__text">
-        <span className='MainForm__text_entered'>{enteredText + enteredText!=='' && ' '}</span>
-        <span className='MainForm__text_current'>{currentElement + ' '}</span>
+        <span className='MainForm__text_entered'>{enteredText}</span>
+        <span className='MainForm__text_current'>{currentElement}</span>
         <span className='MainForm__text_unwritten'>{unwrittenText}</span>
       </p>
 

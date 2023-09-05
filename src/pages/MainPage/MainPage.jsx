@@ -6,7 +6,7 @@ import MainForm from './MainForm'
 
 const MainPage = () => {
   const [text, setText] = useState('') //Выводимый текст
-  const [countCurrentElement, setCountCurrentElement] = useState(4)
+  const [countCurrentElement, setCountCurrentElement] = useState(0)
   const [countForApi, setCountForApi] = useState(10) //Количество предложений для получения с сервера
   const [countSentences, setCountSentences] = useState(0) //Необходимое количество предложений
   const [textLength, setTextLength] = useState(0) //Необходимое количество слов
@@ -26,7 +26,6 @@ const MainPage = () => {
     }
   },[selectedSetting,])
 
-  console.log(countCurrentElement);
 
   useEffect(() => {
     if (selectedSetting === 1 || selectedSetting === 3) {

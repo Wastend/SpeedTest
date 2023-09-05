@@ -32,8 +32,9 @@
     &_entered {
       color: $green;
     }
-    &__current {
+    &_current {
       background-color: $light__green;
+      color: $black;
     }
     &_unwritten {
       
