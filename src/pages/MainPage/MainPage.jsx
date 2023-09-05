@@ -14,7 +14,20 @@ const MainPage = () => {
   const [selectedSetting, setSelectedSetting] = useState(1) // Выбранный ввод
   const { data = {} } = useGetTextQuery(countForApi) //данные с апи
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (selectedSetting === 1) {
+  //     setCountForApi(10)
+  //   }
+  //   else if (selectedSetting === 2) {
+  //     setCountForApi(100)
+  //   }
+  //   else if (selectedSetting === 3) {
+  //     setCountForApi(countSentences)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedSetting])
+
+  function sendRequest() {
     if (selectedSetting === 1) {
       setCountForApi(10)
     }
@@ -24,17 +37,21 @@ const MainPage = () => {
     else if (selectedSetting === 3) {
       setCountForApi(countSentences)
     }
-  },[selectedSetting,])
+  }
 
 
   useEffect(() => {
-    if (selectedSetting === 1 || selectedSetting === 3) {
-      setText(data.text)
+    if (data.text !== '' && data.text !== undefined) {
+      const textForText = data.text.replace('—', '-')
+      if (selectedSetting === 1 || selectedSetting === 3) {
+        setText(textForText)
+      }
+      else {
+        const sentences = textForText.split(' ').slice(0, textLength)
+        setText(sentences.join(' '))
+      }
     }
-    else {
-      const sentences = data.text.split(' ').slice(0, textLength)
-      setText(sentences.join(' '))
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (
@@ -46,6 +63,7 @@ const MainPage = () => {
         setIsActiveSettings={setIsActiveSettings}
         setCountSentences={setCountSentences}
         setTextLength={setTextLength}
+        sendRequest={sendRequest}
       />
       <MainForm
         text={text}

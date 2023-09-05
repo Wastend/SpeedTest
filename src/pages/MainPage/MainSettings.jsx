@@ -67,6 +67,9 @@ const MainSettings = (props) => {
             onChange={(e) => props.setCountSentences(e.target.value)}
           />
         </div>
+        <button 
+        className='button__send'
+        onClick={props.sendRequest}>Подтвердить</button>
       </div>
     </section>
   )

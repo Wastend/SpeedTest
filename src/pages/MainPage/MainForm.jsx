@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const MainForm = (props) => {
 
@@ -15,20 +15,11 @@ const MainForm = (props) => {
     }
   }, [props.text, props.countCurrentElement])
 
-  const escFunction = (event => {
-
-    
+  document.onkeypress = function (event) {
     if (event.key === currentElement) {
-      props.setCountCurrentElement(props.countCurrentElement+1)
+      props.setCountCurrentElement(props.countCurrentElement + 1)
     }
-  })
-
-  useEffect(() => {
-    document.addEventListener("keydown", escFunction, false)
-    return () => {
-      document.removeEventListener("keydown", escFunction, false)
-    }
-  }, [escFunction])
+  }
 
   return (
     <section className='MainForm'>

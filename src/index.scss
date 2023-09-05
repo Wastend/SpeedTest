@@ -43,7 +43,6 @@ input {
 }
 
 .arrow {
-
   &_active,
   &_inactive {
     width: 0.8rem;
@@ -62,6 +61,18 @@ input {
     transform: rotate(45deg);
     animation: setInactive 0.4s;
   }
+}
+
+.button__send{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 1.8rem;
+  background-color: $gray;
+  color: $black;
+  border-radius: 0.8rem;
+  cursor: pointer;
 }
 
 @keyframes setActive {
