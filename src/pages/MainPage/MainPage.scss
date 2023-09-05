@@ -29,6 +29,15 @@
 
   &__text {
 
+    &_entered {
+      color: $green;
+    }
+    &__current {
+      background-color: $light__green;
+    }
+    &_unwritten {
+      
+    }
   }
 }
 
@@ -36,6 +45,51 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  &__setup {
+    flex-direction: column;
+    gap: 1rem;
+
+    &.active {
+      display: flex;
+    }
+
+    &.inactive {
+      display: none;
+    }
+
+    &_block {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &_button {
+      display: flex;
+      background-color: transparent;
+      border: 0;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    &_radio {
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $white;
+      border-radius: 0.5rem;
+
+      &.active {
+        background-color: $green;
+      }
+    }
+
+    &_input {
+      height: 1.8rem;
+      border-radius: 0.8rem;
+      padding: 0 0.4rem;
+      width: 2rem;
+    }
+  }
 
   &__button {
     display: flex;

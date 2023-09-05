@@ -5,15 +5,31 @@ import MainSettings from './MainSettings'
 import MainForm from './MainForm'
 
 const MainPage = () => {
-  const [text, setText] = useState('')
-  const [count, setCount] = useState(10)
-  const [textLength, setTextLength] = useState(0)
-  const { data = {}, isLoading } = useGetTextQuery(count)
-
-  const currentText = 'АБв576'
+  const [text, setText] = useState('') //Выводимый текст
+  const [countCurrentElement, setCountCurrentElement] = useState(4)
+  const [countForApi, setCountForApi] = useState(10) //Количество предложений для получения с сервера
+  const [countSentences, setCountSentences] = useState(0) //Необходимое количество предложений
+  const [textLength, setTextLength] = useState(0) //Необходимое количество слов
+  const [isActiveSettings, setIsActiveSettings] = useState(false) // открыто ли меню настроек
+  const [selectedSetting, setSelectedSetting] = useState(1) // Выбранный ввод
+  const { data = {} } = useGetTextQuery(countForApi) //данные с апи
 
   useEffect(() => {
-    if (textLength === 0) {
+    if (selectedSetting === 1) {
+      setCountForApi(10)
+    }
+    else if (selectedSetting === 2) {
+      setCountForApi(100)
+    }
+    else if (selectedSetting === 3) {
+      setCountForApi(countSentences)
+    }
+  },[selectedSetting,])
+
+  console.log(countCurrentElement);
+
+  useEffect(() => {
+    if (selectedSetting === 1 || selectedSetting === 3) {
       setText(data.text)
     }
     else {
@@ -22,22 +38,21 @@ const MainPage = () => {
     }
   }, [data])
 
-
-  async function setTextForTest(action, number) {
-    if (action === 'sentence') {
-      setCount(number)
-      setTextLength(0)
-    }
-    else if (action === 'words') {
-      setCount(100)
-      setTextLength(number)
-    }
-  }
-
   return (
     <section className='MainPage'>
-      <MainSettings setTextForTest={setTextForTest} />
-      <MainForm currentText={text} />
+      <MainSettings
+        selectedSetting={selectedSetting}
+        setSelectedSetting={setSelectedSetting}
+        isActiveSettings={isActiveSettings}
+        setIsActiveSettings={setIsActiveSettings}
+        setCountSentences={setCountSentences}
+        setTextLength={setTextLength}
+      />
+      <MainForm
+        text={text}
+        countCurrentElement={countCurrentElement}
+        setCountCurrentElement={setCountCurrentElement}
+      />
     </section >
   )
 }

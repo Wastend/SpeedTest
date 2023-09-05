@@ -1,22 +1,73 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const MainSettings = (props) => {
-
-  const [isActive, setIsActive] = useState(false)
 
   return (
     <section className='settings'>
       <h1 className='settings__header'>Начните тест и проверьте свою скорость!</h1>
-      <button className='settings__button' onClick={() => setIsActive(!isActive)}>
+      <button className='settings__button' onClick={() => props.setIsActiveSettings(!props.isActiveSettings)}>
         Открыть дополнительные настройки
-        <div className={`arrow_${isActive ? 'active' : 'inactive'}`}></div>
+        <div className={`arrow_${props.isActiveSettings ? 'active' : 'inactive'}`}></div>
       </button>
-      {isActive &&
-        <div className="settings__setup">
-          <button className='settings__button' onClick={() => props.setTextForTest('words', 10)}>Установить 10 слов</button>
-          <button className='settings__button' onClick={() => props.setTextForTest('sentence', 2)}>Установить 2 предложения</button>
+
+      <div className={`settings__setup${props.isActiveSettings ? ' active' : ' inactive'}`}>
+        <div className="settings__setup_block">
+          <button
+            className='settings__setup_button'
+            onClick={() => props.setSelectedSetting(1)}
+          >
+            <div
+              className={`settings__setup_radio${props.selectedSetting === 1 ? ' active' : ''}`}
+            />
+            <span
+              className='settings__setup_text'>
+              Текст по умолчанию
+            </span>
+          </button>
         </div>
-      }
+        <div className="settings__setup_block">
+          <button
+            className='settings__setup_button'
+            onClick={() => props.setSelectedSetting(2)}
+          >
+            <div
+              className={`settings__setup_radio${props.selectedSetting === 2 ? ' active' : ''}`}
+            />
+            <span
+              className='settings__setup_text'>
+              Текст по кол-ву слов
+            </span>
+          </button>
+
+          <input
+            type="number"
+            className='settings__setup_input'
+            placeholder='№'
+            onChange={(e) => props.setTextLength(e.target.value)}
+          />
+        </div>
+        <div className="settings__setup_block">
+          <button
+            className='settings__setup_button'
+            onClick={() => props.setSelectedSetting(3)}
+          >
+            <div
+              className={`settings__setup_radio${props.selectedSetting === 3 ? ' active' : ''}`}
+            />
+            <span
+              className='settings__setup_text'>
+              Текст по кол-ву предложений
+            </span>
+          </button>
+
+          <input
+            type="number"
+            className='settings__setup_input'
+            placeholder='№'
+            onChange={(e) => props.setCountSentences(e.target.value)}
+          />
+        </div>
+      </div>
     </section>
   )
 }
