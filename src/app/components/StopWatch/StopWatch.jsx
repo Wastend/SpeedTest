@@ -31,6 +31,12 @@ const StopWatch = (props) => {
     }
   }, [props.start])
 
+  useEffect(() => {
+    if (props.countCurrentElement === 0)
+      handleReset()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.countCurrentElement])
+
   function handleStart() { //Запускаем таймер
     setTime(0)
     setIsActive(true)
@@ -46,16 +52,17 @@ const StopWatch = (props) => {
     props.setCountCurrentElement(0)
     handlePause()
     setTime(0)
+    props.setCountMistakes(0)
     props.setStart(false)
   }
 
-  const percentageOfErrors = ((1- props.countMistakes/props.text.length)*100).toFixed(2)
+  const percentageOfErrors = ((1 - props.countMistakes / props.text.length) * 100).toFixed(2)
 
   return (
     <div className="stop-watch">
       <Timer time={time} />
       <button className='settings__button' onClick={handleReset}>Сбросить</button>
-      <h1>{percentageOfErrors+"%"}</h1>
+      <h1>{percentageOfErrors + "%"}</h1>
     </div>
   )
 }

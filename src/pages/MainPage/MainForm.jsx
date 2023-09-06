@@ -6,7 +6,6 @@ const MainForm = (props) => {
   const [enteredText, setEnteredText] = useState('')
   const [currentElement, setCurrentElement] = useState('')
   const [unwrittenText, setUnwrittenText] = useState('')
-  const [start, setStart] = useState(false)
 
   useEffect(() => {
     if (props.text !== '' && props.text !== undefined) {
@@ -20,11 +19,11 @@ const MainForm = (props) => {
   document.onkeypress = function (event) {
     if (event.key === currentElement) {
       props.setHasMistake(false)
-      props.countCurrentElement === 0 ? setStart(true) : props.countCurrentElement === props.text.length-1 && setStart(false)
+      props.countCurrentElement === 0 ? props.setStart(true) : props.countCurrentElement === props.text.length - 1 && props.setStart(false)
       props.setCountCurrentElement(props.countCurrentElement + 1)
     }
-    else {
-      !props.hasMistake && props.setCountMistakes(props.countMistakes+1)
+    else if (props.countCurrentElement !== 0) {
+      !props.hasMistake && props.setCountMistakes(props.countMistakes + 1)
       props.setHasMistake(true)
     }
   }
@@ -36,7 +35,16 @@ const MainForm = (props) => {
         <span className={`MainForm__text_current${props.hasMistake ? '_mistake' : ''}`}>{currentElement}</span>
         <span className='MainForm__text_unwritten'>{unwrittenText}</span>
       </p>
-      <StopWatch start={start} setCountCurrentElement={props.setCountCurrentElement} setStart={setStart} countMistakes={props.countMistakes} text={props.text}/>
+      <StopWatch 
+      start={props.start} 
+      setCountCurrentElement={props.setCountCurrentElement} 
+      setStart={props.setStart} 
+      countMistakes={props.countMistakes} 
+      text={props.text} 
+      setCountForApi={props.setCountForApi}
+      countCurrentElement={props.countCurrentElement}
+      setCountMistakes={props.setCountMistakes}
+      />
 
     </section>
   )

@@ -12,11 +12,13 @@ const MainPage = () => {
   const [textLength, setTextLength] = useState(0) //Необходимое количество слов
   const [isActiveSettings, setIsActiveSettings] = useState(false) // открыто ли меню настроек
   const [selectedSetting, setSelectedSetting] = useState(1) // Выбранный ввод
-  const [hasMistake, setHasMistake] = useState(false)
-  const [countMistakes, setCountMistakes] = useState(0)
+  const [hasMistake, setHasMistake] = useState(false) //Ошибся ли пользователь на данном символе
+  const [countMistakes, setCountMistakes] = useState(0) //Общее число ошибок
   const { data = {} } = useGetTextQuery(countForApi) //данные с апи
+  const [start, setStart] = useState(false) // Начало выполнения теста
 
   function sendRequest() {
+    setStart(false)
     setCountCurrentElement(0)
     if (selectedSetting === 1) {
       setCountForApi(10)
@@ -63,6 +65,9 @@ const MainPage = () => {
         setHasMistake={setHasMistake}
         countMistakes={countMistakes}
         setCountMistakes={setCountMistakes}
+        start={start}
+        setStart={setStart}
+        setCountForApi={setCountForApi}
       />
     </section >
   )
