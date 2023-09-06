@@ -12,22 +12,12 @@ const MainPage = () => {
   const [textLength, setTextLength] = useState(0) //Необходимое количество слов
   const [isActiveSettings, setIsActiveSettings] = useState(false) // открыто ли меню настроек
   const [selectedSetting, setSelectedSetting] = useState(1) // Выбранный ввод
+  const [hasMistake, setHasMistake] = useState(false)
+  const [countMistakes, setCountMistakes] = useState(0)
   const { data = {} } = useGetTextQuery(countForApi) //данные с апи
 
-  // useEffect(() => {
-  //   if (selectedSetting === 1) {
-  //     setCountForApi(10)
-  //   }
-  //   else if (selectedSetting === 2) {
-  //     setCountForApi(100)
-  //   }
-  //   else if (selectedSetting === 3) {
-  //     setCountForApi(countSentences)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedSetting])
-
   function sendRequest() {
+    setCountCurrentElement(0)
     if (selectedSetting === 1) {
       setCountForApi(10)
     }
@@ -69,6 +59,10 @@ const MainPage = () => {
         text={text}
         countCurrentElement={countCurrentElement}
         setCountCurrentElement={setCountCurrentElement}
+        hasMistake={hasMistake}
+        setHasMistake={setHasMistake}
+        countMistakes={countMistakes}
+        setCountMistakes={setCountMistakes}
       />
     </section >
   )

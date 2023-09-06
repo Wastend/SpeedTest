@@ -15,7 +15,7 @@
 
 .MainForm {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.4rem;
   margin-top: 2rem;
   width: 100%;
@@ -28,16 +28,23 @@
   }
 
   &__text {
-
+    width: 80%;
+    background-color: $dark__gray;
+    padding: 1rem;
+    border-radius: 0.5rem;
     &_entered {
-      color: $green;
+      color: $light__green;
     }
     &_current {
+      border-radius: 0.2rem;
       background-color: $light__green;
       color: $black;
+      &_mistake {
+        background-color: $red;
+      }
     }
     &_unwritten {
-      
+      // color: $black;
     }
   }
 }

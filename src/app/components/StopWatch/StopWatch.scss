@@ -1,0 +1,27 @@
+.stop-watch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 23vw;
+  gap: 3rem;
+
+  & .settings__button {
+    justify-content: center;
+  }
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__digits {
+    font-size: 3rem;
+    color: #f5f5f5;
+
+    &.mili {
+      color: #e42a2a;
+    }
+  }
+}
