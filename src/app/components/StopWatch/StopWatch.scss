@@ -9,6 +9,11 @@
   & .settings__button {
     justify-content: center;
   }
+
+  &__results {
+    display: flex;
+    text-align: center;
+  }
 }
 
 .timer {

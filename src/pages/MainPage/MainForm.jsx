@@ -6,6 +6,8 @@ const MainForm = (props) => {
   const [enteredText, setEnteredText] = useState('')
   const [currentElement, setCurrentElement] = useState('')
   const [unwrittenText, setUnwrittenText] = useState('')
+  const [symbolsInMin, setSymbolsInMin] = useState(0)
+  const [startTime, setStartTime] = useState(new Date())
 
   useEffect(() => {
     if (props.text !== '' && props.text !== undefined) {
@@ -18,6 +20,8 @@ const MainForm = (props) => {
 
   document.onkeypress = function (event) {
     if (event.key === currentElement) {
+      const curTime = new Date()
+      setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime())/1000)*60).toFixed(2))
       props.setHasMistake(false)
       props.countCurrentElement === 0 ? props.setStart(true) : props.countCurrentElement === props.text.length - 1 && props.setStart(false)
       props.setCountCurrentElement(props.countCurrentElement + 1)
@@ -35,15 +39,18 @@ const MainForm = (props) => {
         <span className={`MainForm__text_current${props.hasMistake ? '_mistake' : ''}`}>{currentElement}</span>
         <span className='MainForm__text_unwritten'>{unwrittenText}</span>
       </p>
-      <StopWatch 
-      start={props.start} 
-      setCountCurrentElement={props.setCountCurrentElement} 
-      setStart={props.setStart} 
-      countMistakes={props.countMistakes} 
-      text={props.text} 
-      setCountForApi={props.setCountForApi}
-      countCurrentElement={props.countCurrentElement}
-      setCountMistakes={props.setCountMistakes}
+      <StopWatch
+        start={props.start}
+        setCountCurrentElement={props.setCountCurrentElement}
+        setStart={props.setStart}
+        countMistakes={props.countMistakes}
+        text={props.text}
+        setCountForApi={props.setCountForApi}
+        countCurrentElement={props.countCurrentElement}
+        setCountMistakes={props.setCountMistakes}
+        startTime={startTime}
+        setStartTime={setStartTime}
+        symbolsInMin={symbolsInMin}
       />
 
     </section>

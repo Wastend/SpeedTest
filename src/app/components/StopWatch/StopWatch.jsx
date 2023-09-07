@@ -25,6 +25,7 @@ const StopWatch = (props) => {
   useEffect(() => {
     if (props.start) {
       handleStart()
+      props.setStartTime(new Date())
     }
     else {
       handlePause()
@@ -62,7 +63,8 @@ const StopWatch = (props) => {
     <div className="stop-watch">
       <Timer time={time} />
       <button className='settings__button' onClick={handleReset}>Сбросить</button>
-      <h1>{percentageOfErrors + "%"}</h1>
+      <h1 className='stop-watch__results'>{"Скорость ввода " + props.symbolsInMin}</h1>
+      <h1 className='stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
     </div>
   )
 }
