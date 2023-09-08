@@ -26,7 +26,7 @@ const MainForm = (props) => {
       props.countCurrentElement === 0 ? props.setStart(true) : props.countCurrentElement === props.text.length - 1 && props.setStart(false)
       props.setCountCurrentElement(props.countCurrentElement + 1)
     }
-    else if (props.countCurrentElement !== 0) {
+    else if (props.countCurrentElement !== 0 && props.countCurrentElement !== props.text.length) {
       !props.hasMistake && props.setCountMistakes(props.countMistakes + 1)
       props.setHasMistake(true)
     }
@@ -45,7 +45,6 @@ const MainForm = (props) => {
         setStart={props.setStart}
         countMistakes={props.countMistakes}
         text={props.text}
-        setCountForApi={props.setCountForApi}
         countCurrentElement={props.countCurrentElement}
         setCountMistakes={props.setCountMistakes}
         startTime={startTime}

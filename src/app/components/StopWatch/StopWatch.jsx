@@ -62,7 +62,7 @@ const StopWatch = (props) => {
   return (
     <div className="stop-watch">
       <Timer time={time} />
-      <button className='settings__button' onClick={handleReset}>Сбросить</button>
+      <button className='stop-watch settings__button' onClick={handleReset}>{props.countCurrentElement === props.text.length ? 'Начать сначала' : 'Сбросить'}</button>
       <h1 className='stop-watch__results'>{"Скорость ввода " + props.symbolsInMin}</h1>
       <h1 className='stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
     </div>
