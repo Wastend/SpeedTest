@@ -17,11 +17,11 @@ const MainPage = () => {
   const { data = {}, refetch } = useGetTextQuery(countForApi) //данные с апи
   const [start, setStart] = useState(false) // Начало выполнения теста
 
-  async function sendRequest() {
+  async function sendRequest() { //Отправить запрос на API
     setStart(false)
     setCountCurrentElement(0)
     if (selectedSetting === 1) {
-      await setCountForApi(10)
+      await setCountForApi(6)
       refetch()
     }
     else if (selectedSetting === 2) {
@@ -34,8 +34,7 @@ const MainPage = () => {
     }
   }
 
-
-  useEffect(() => {
+  useEffect(() => { //Подкорректировать текст при получении с API
     if (data.text !== '' && data.text !== undefined) {
       const textForText = data.text.replace('—', '-')
       if (selectedSetting === 1 || selectedSetting === 3) {
@@ -48,6 +47,13 @@ const MainPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
+
+  useEffect(() => { //Увеличение количества числа ошибок пользователя
+    if (hasMistake) {
+      setCountMistakes(countMistakes + 1)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasMistake])
 
   return (
     <section className='MainPage'>
@@ -67,10 +73,8 @@ const MainPage = () => {
         hasMistake={hasMistake}
         setHasMistake={setHasMistake}
         countMistakes={countMistakes}
-        setCountMistakes={setCountMistakes}
         start={start}
         setStart={setStart}
-        setCountForApi={setCountForApi}
       />
     </section >
   )

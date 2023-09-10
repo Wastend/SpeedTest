@@ -3,14 +3,14 @@ import StopWatch from '../../app/components/StopWatch/StopWatch'
 
 const MainForm = (props) => {
 
-  const [enteredText, setEnteredText] = useState('')
-  const [currentElement, setCurrentElement] = useState('')
-  const [unwrittenText, setUnwrittenText] = useState('')
-  const [symbolsInMin, setSymbolsInMin] = useState(0)
-  const [startTime, setStartTime] = useState(new Date())
-  const windowWidth = window.innerWidth
+  const [enteredText, setEnteredText] = useState('') //Введенный текст
+  const [currentElement, setCurrentElement] = useState('') //Текущий символ
+  const [unwrittenText, setUnwrittenText] = useState('') //невведеный текст
+  const [symbolsInMin, setSymbolsInMin] = useState(0) //Количество символов в минуту
+  const [startTime, setStartTime] = useState(new Date()) //Время начала теста
+  const windowWidth = window.innerWidth //Размер окна
 
-  useEffect(() => {
+  useEffect(() => { //Изменение отображаемого текста
     if (props.text !== '' && props.text !== undefined) {
       const elements = props.text.split('')
       setEnteredText(elements.slice(0, props.countCurrentElement).join(''))
@@ -19,9 +19,8 @@ const MainForm = (props) => {
     }
   }, [props.text, props.countCurrentElement])
 
-  function regex(letter) {
+  function regex(letter) { //Проверка, что символ является нужным
     if (letter === currentElement) {
-      console.log(letter, currentElement)
       const curTime = new Date()
       setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2))
       props.setHasMistake(false)
@@ -29,12 +28,11 @@ const MainForm = (props) => {
       props.setCountCurrentElement(props.countCurrentElement + 1)
     }
     else if (props.countCurrentElement !== 0 && props.countCurrentElement !== props.text.length) {
-      !props.hasMistake && props.setCountMistakes(props.countMistakes + 1)
       props.setHasMistake(true)
     }
   }
 
-  document.onkeypress = function (event) {
+  document.onkeypress = function (event) { //Отслеживание нажатия клавиш
     if (windowWidth >= 768) {
       if (event.key === ' ') {
         event.preventDefault()
@@ -47,7 +45,10 @@ const MainForm = (props) => {
     <section className='MainForm'>
       {
         windowWidth <= 768 &&
-        <input value={enteredText} onChange={(e) => regex(e.target.value.slice(-1))} type="text" />
+        <input
+          value={enteredText}
+          onChange={(e) => regex(e.target.value.slice(-1))}
+          type="text" />
       }
       <p className="MainForm__text">
         {
@@ -58,18 +59,17 @@ const MainForm = (props) => {
         <span className='MainForm__text_unwritten'>{unwrittenText}</span>
       </p>
       <StopWatch
-        start={props.start}
-        setCountCurrentElement={props.setCountCurrentElement}
-        setStart={props.setStart}
-        countMistakes={props.countMistakes}
         text={props.text}
+        start={props.start}
+        setStart={props.setStart}
+        setCountCurrentElement={props.setCountCurrentElement}
+        countMistakes={props.countMistakes}
         countCurrentElement={props.countCurrentElement}
         setCountMistakes={props.setCountMistakes}
         startTime={startTime}
         setStartTime={setStartTime}
         symbolsInMin={symbolsInMin}
       />
-
     </section>
   )
 }

@@ -7,9 +7,8 @@ const StopWatch = (props) => {
   const [isPaused, setIsPaused] = useState(true)
   const [time, setTime] = useState(0)
 
-  useEffect(() => { //Устанавливаем интервал времени и вывключаем таймер
+  useEffect(() => { //Устанавливаем интервал времени
     let interval = null
-
     if (isActive && isPaused === false) {
       interval = setInterval(() => {
         setTime((time) => time + 10)
@@ -22,7 +21,7 @@ const StopWatch = (props) => {
     }
   }, [isActive, isPaused])
 
-  useEffect(() => {
+  useEffect(() => { //Включаем и выключаем таймер
     if (props.start) {
       handleStart()
       props.setStartTime(new Date())
@@ -33,7 +32,7 @@ const StopWatch = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.start])
 
-  useEffect(() => {
+  useEffect(() => { //Если получили новые данные с API, то сбрасываем
     if (props.countCurrentElement === 0)
       handleReset()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +49,7 @@ const StopWatch = (props) => {
     setIsPaused(true)
   }
 
-  function handleReset() {
+  function handleReset() { //Сбрасываем прогресс
     props.setCountCurrentElement(0)
     handlePause()
     setTime(0)
@@ -65,7 +64,12 @@ const StopWatch = (props) => {
       <Timer time={time} />
       <h1 className='Stop-watch__results'>{"Скорость ввода " + props.symbolsInMin}</h1>
       <h1 className='Stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
-      <button className='button__send' onClick={handleReset}>{props.countCurrentElement === props.text.length ? 'Начать сначала' : 'Сбросить'}</button>
+      <button
+        className='button__send'
+        onClick={handleReset}
+      >
+        {props.countCurrentElement === props.text.length ? 'Начать сначала' : 'Сбросить'}
+      </button>
     </section>
   )
 }

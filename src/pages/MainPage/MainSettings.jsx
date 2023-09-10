@@ -4,8 +4,15 @@ const MainSettings = (props) => {
 
   return (
     <section className='Settings'>
-      <h1 className='Settings__header'>Начните тест и проверьте свою скорость!</h1>
-      <button className='Settings__button' onClick={() => props.setIsActiveSettings(!props.isActiveSettings)}>
+      <h1
+        className='Settings__header'
+      >
+        Начните тест и проверьте свою скорость!
+      </h1>
+      <button
+        className='Settings__button'
+        onClick={() => props.setIsActiveSettings(!props.isActiveSettings)}
+      >
         Открыть дополнительные настройки
         <div className={`arrow_${props.isActiveSettings ? 'active' : 'inactive'}`}></div>
       </button>
@@ -20,7 +27,8 @@ const MainSettings = (props) => {
               className={`Settings__setup_radio${props.selectedSetting === 1 ? ' active' : ''}`}
             />
             <span
-              className='Settings__setup_text'>
+              className='Settings__setup_text'
+            >
               Текст по умолчанию
             </span>
           </button>
@@ -34,7 +42,8 @@ const MainSettings = (props) => {
               className={`Settings__setup_radio${props.selectedSetting === 2 ? ' active' : ''}`}
             />
             <span
-              className='Settings__setup_text'>
+              className='Settings__setup_text'
+            >
               Текст по кол-ву слов
             </span>
           </button>
@@ -58,7 +67,8 @@ const MainSettings = (props) => {
               className={`Settings__setup_radio${props.selectedSetting === 3 ? ' active' : ''}`}
             />
             <span
-              className='Settings__setup_text'>
+              className='Settings__setup_text'
+            >
               Текст по кол-ву предложений
             </span>
           </button>
@@ -70,13 +80,15 @@ const MainSettings = (props) => {
             onChange={(e) => {
               props.setSelectedSetting(3)
               props.setCountSentences(e.target.value)
-            }
-            }
+            }}
           />
         </div>
         <button
           className='button__send'
-          onClick={props.sendRequest}>Подтвердить</button>
+          onClick={props.sendRequest}
+        >
+          Подтвердить
+        </button>
       </div>
     </section>
   )
