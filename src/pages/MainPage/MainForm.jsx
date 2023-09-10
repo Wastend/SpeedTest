@@ -8,6 +8,7 @@ const MainForm = (props) => {
   const [unwrittenText, setUnwrittenText] = useState('')
   const [symbolsInMin, setSymbolsInMin] = useState(0)
   const [startTime, setStartTime] = useState(new Date())
+  const windowWidth = window.innerWidth
 
   useEffect(() => {
     if (props.text !== '' && props.text !== undefined) {
@@ -18,11 +19,9 @@ const MainForm = (props) => {
     }
   }, [props.text, props.countCurrentElement])
 
-  document.onkeypress = function (event) {
-    if (event.key === ' ') {
-      event.preventDefault()
-    }
-    if (event.key === currentElement) {
+  function regex(letter) {
+    if (letter === currentElement) {
+      console.log(letter, currentElement)
       const curTime = new Date()
       setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2))
       props.setHasMistake(false)
@@ -35,10 +34,26 @@ const MainForm = (props) => {
     }
   }
 
+  document.onkeypress = function (event) {
+    if (windowWidth >= 768) {
+      if (event.key === ' ') {
+        event.preventDefault()
+      }
+      regex(event.key)
+    }
+  }
+
   return (
     <section className='MainForm'>
+      {
+        windowWidth <= 768 &&
+        <input value={enteredText} onChange={(e) => regex(e.target.value.slice(-1))} type="text" />
+      }
       <p className="MainForm__text">
-        <span className='MainForm__text_entered'>{enteredText}</span>
+        {
+          windowWidth > 768 &&
+          <span className='MainForm__text_entered'>{enteredText}</span>
+        }
         <span className={`MainForm__text_current${props.hasMistake ? '_mistake' : ''}`}>{currentElement}</span>
         <span className='MainForm__text_unwritten'>{unwrittenText}</span>
       </p>
