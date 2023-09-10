@@ -37,12 +37,28 @@ input {
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // width: calc(100% - 10vw);
+  max-width: 1920px;
+  width: 100%;
+
+  @media(max-width: 1440px) {
+    & {
+      // width: calc(100% - 6vw);
+    }
   }
 }
 
 .arrow {
+
   &_active,
   &_inactive {
     width: 0.8rem;
@@ -63,7 +79,7 @@ input {
   }
 }
 
-.button__send{
+.button__send {
   display: flex;
   align-items: center;
   justify-content: center;
