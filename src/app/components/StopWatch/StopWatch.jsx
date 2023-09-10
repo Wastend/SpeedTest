@@ -30,6 +30,7 @@ const StopWatch = (props) => {
     else {
       handlePause()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.start])
 
   useEffect(() => {
@@ -60,12 +61,12 @@ const StopWatch = (props) => {
   const percentageOfErrors = ((1 - props.countMistakes / props.text.length) * 100).toFixed(2)
 
   return (
-    <div className="stop-watch">
+    <section className="Stop-watch">
       <Timer time={time} />
-      <button className='stop-watch settings__button' onClick={handleReset}>{props.countCurrentElement === props.text.length ? 'Начать сначала' : 'Сбросить'}</button>
-      <h1 className='stop-watch__results'>{"Скорость ввода " + props.symbolsInMin}</h1>
-      <h1 className='stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
-    </div>
+      <h1 className='Stop-watch__results'>{"Скорость ввода " + props.symbolsInMin}</h1>
+      <h1 className='Stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
+      <button className='button__send' onClick={handleReset}>{props.countCurrentElement === props.text.length ? 'Начать сначала' : 'Сбросить'}</button>
+    </section>
   )
 }
 

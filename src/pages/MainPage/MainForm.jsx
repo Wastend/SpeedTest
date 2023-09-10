@@ -19,9 +19,12 @@ const MainForm = (props) => {
   }, [props.text, props.countCurrentElement])
 
   document.onkeypress = function (event) {
+    if (event.key === ' ') {
+      event.preventDefault()
+    }
     if (event.key === currentElement) {
       const curTime = new Date()
-      setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime())/1000)*60).toFixed(2))
+      setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2))
       props.setHasMistake(false)
       props.countCurrentElement === 0 ? props.setStart(true) : props.countCurrentElement === props.text.length - 1 && props.setStart(false)
       props.setCountCurrentElement(props.countCurrentElement + 1)

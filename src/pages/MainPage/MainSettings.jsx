@@ -43,7 +43,10 @@ const MainSettings = (props) => {
             type="number"
             className='Settings__setup_input'
             placeholder='№'
-            onChange={(e) => props.setTextLength(e.target.value)}
+            onChange={(e) => {
+              props.setSelectedSetting(2)
+              props.setTextLength(e.target.value)
+            }}
           />
         </div>
         <div className="Settings__setup_block">
@@ -64,12 +67,16 @@ const MainSettings = (props) => {
             type="number"
             className='Settings__setup_input'
             placeholder='№'
-            onChange={(e) => props.setCountSentences(e.target.value)}
+            onChange={(e) => {
+              props.setSelectedSetting(3)
+              props.setCountSentences(e.target.value)
+            }
+            }
           />
         </div>
-        <button 
-        className='button__send'
-        onClick={props.sendRequest}>Подтвердить</button>
+        <button
+          className='button__send'
+          onClick={props.sendRequest}>Подтвердить</button>
       </div>
     </section>
   )

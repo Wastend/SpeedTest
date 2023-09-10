@@ -15,7 +15,6 @@ const MainPage = () => {
   const [hasMistake, setHasMistake] = useState(false) //Ошибся ли пользователь на данном символе
   const [countMistakes, setCountMistakes] = useState(0) //Общее число ошибок
   const { data = {}, refetch } = useGetTextQuery(countForApi) //данные с апи
-  // useGetTextQuery(countForApi, { refetchOnMountOrArgChange: 'true' })
   const [start, setStart] = useState(false) // Начало выполнения теста
 
   async function sendRequest() {

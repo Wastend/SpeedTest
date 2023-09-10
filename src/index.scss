@@ -13,6 +13,30 @@
   &::selection {
     background-color: $dark__gray;
   }
+
+  @media(max-width:1024px) {
+    & {
+      font-size: 16px;
+    }
+  }
+
+  @media(max-width:768px) {
+    & {
+      font-size: 14px;
+    }
+  }
+
+  @media(max-width:375px) {
+    & {
+      font-size: 12px;
+    }
+  }
+
+  @media(max-width:320px) {
+    & {
+      font-size: 11px;
+    }
+  }
 }
 
 body {
@@ -77,18 +101,27 @@ main {
     transform: rotate(45deg);
     animation: setInactive 0.4s;
   }
+
+  @media(max-width:375px) {
+
+    &_active,
+    &_inactive {
+      width: 1.1rem;
+    }
+  }
 }
 
 .button__send {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10rem;
+  padding: 0.2rem;
   height: 1.8rem;
   background-color: $gray;
   color: $black;
   border-radius: 0.8rem;
   cursor: pointer;
+  font-weight: bold;
 }
 
 @keyframes setActive {
