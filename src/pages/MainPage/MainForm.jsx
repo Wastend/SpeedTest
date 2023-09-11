@@ -5,7 +5,7 @@ const MainForm = (props) => {
 
   const [enteredText, setEnteredText] = useState('') //Введенный текст
   const [currentElement, setCurrentElement] = useState('') //Текущий символ
-  const [unwrittenText, setUnwrittenText] = useState('') //невведеный текст
+  const [unwrittenText, setUnwrittenText] = useState('') //Невведеный текст
   const [symbolsInMin, setSymbolsInMin] = useState(0) //Количество символов в минуту
   const [startTime, setStartTime] = useState(new Date()) //Время начала теста
   const windowWidth = window.innerWidth //Размер окна

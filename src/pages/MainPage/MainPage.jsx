@@ -62,7 +62,9 @@ const MainPage = () => {
         setSelectedSetting={setSelectedSetting}
         isActiveSettings={isActiveSettings}
         setIsActiveSettings={setIsActiveSettings}
+        countSentences={countSentences}
         setCountSentences={setCountSentences}
+        textLength={textLength}
         setTextLength={setTextLength}
         sendRequest={sendRequest}
       />

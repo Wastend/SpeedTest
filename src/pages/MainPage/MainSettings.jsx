@@ -51,10 +51,12 @@ const MainSettings = (props) => {
           <input
             type="number"
             className='Settings__setup_input'
+            value={props.textLength}
             placeholder='№'
             onChange={(e) => {
               props.setSelectedSetting(2)
-              props.setTextLength(e.target.value)
+              if (e.target.value < 1000)
+                props.setTextLength(e.target.value)
             }}
           />
         </div>
@@ -77,9 +79,11 @@ const MainSettings = (props) => {
             type="number"
             className='Settings__setup_input'
             placeholder='№'
+            value={props.countSentences}
             onChange={(e) => {
               props.setSelectedSetting(3)
-              props.setCountSentences(e.target.value)
+              if (e.target.value < 100)
+                props.setCountSentences(e.target.value)
             }}
           />
         </div>
