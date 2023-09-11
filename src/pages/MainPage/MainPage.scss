@@ -28,6 +28,7 @@
       height: 1.8rem;
       border-radius: 0.8rem;
       padding: 0 1rem;
+      order: 1;
     }
 
     &__text {
@@ -35,6 +36,7 @@
       background-color: $dark__gray;
       padding: 1rem;
       border-radius: 0.5rem;
+      order: 2;
 
       &_entered {
         color: $light__green;
