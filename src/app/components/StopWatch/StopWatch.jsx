@@ -54,6 +54,7 @@ const StopWatch = (props) => {
     handlePause()
     setTime(0)
     props.setCountMistakes(0)
+    props.setSymbolsInMin(0)
     props.setStart(false)
   }
 

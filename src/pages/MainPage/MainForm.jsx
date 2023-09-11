@@ -69,6 +69,7 @@ const MainForm = (props) => {
         startTime={startTime}
         setStartTime={setStartTime}
         symbolsInMin={symbolsInMin}
+        setSymbolsInMin={setSymbolsInMin}
       />
     </section>
   )
