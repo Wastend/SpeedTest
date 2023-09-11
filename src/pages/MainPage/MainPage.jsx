@@ -73,6 +73,7 @@ const MainPage = () => {
         hasMistake={hasMistake}
         setHasMistake={setHasMistake}
         countMistakes={countMistakes}
+        setCountMistakes={setCountMistakes}
         start={start}
         setStart={setStart}
       />
