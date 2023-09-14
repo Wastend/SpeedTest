@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import "./StopWatch.scss"
 import Timer from "./Timer"
+import { useDispatch, useSelector } from 'react-redux'
+import { setStart } from '../../data/dataReducer'
 
 const StopWatch = (props) => {
+  const dispatch = useDispatch()
+  const start = useSelector(state => state.data.start)
   const [isActive, setIsActive] = useState(false)
   const [isPaused, setIsPaused] = useState(true)
   const [time, setTime] = useState(0)
@@ -22,7 +26,7 @@ const StopWatch = (props) => {
   }, [isActive, isPaused])
 
   useEffect(() => { //Включаем и выключаем таймер
-    if (props.start) {
+    if (start) {
       handleStart()
       props.setStartTime(new Date())
     }
@@ -30,7 +34,7 @@ const StopWatch = (props) => {
       handlePause()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.start])
+  }, [start])
 
   useEffect(() => { //Если получили новые данные с API, то сбрасываем
     if (props.countCurrentElement === 0)
@@ -55,7 +59,7 @@ const StopWatch = (props) => {
     setTime(0)
     props.setCountMistakes(0)
     props.setSymbolsInMin(0)
-    props.setStart(false)
+    dispatch(setStart(false))
   }
 
   const percentageOfErrors = ((1 - props.countMistakes / props.text.length) * 100).toFixed(2)

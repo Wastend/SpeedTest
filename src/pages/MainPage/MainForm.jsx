@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import StopWatch from '../../app/components/StopWatch/StopWatch'
+import { useDispatch, useSelector } from 'react-redux'
+import { setStart } from '../../app/data/dataReducer'
 
 const MainForm = (props) => {
-
+  const dispatch = useDispatch()
   const [enteredText, setEnteredText] = useState('') //Введенный текст
   const [currentElement, setCurrentElement] = useState('') //Текущий символ
   const [unwrittenText, setUnwrittenText] = useState('') //Невведеный текст
@@ -24,7 +26,7 @@ const MainForm = (props) => {
       const curTime = new Date()
       setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2))
       props.setHasMistake(false)
-      props.countCurrentElement === 0 ? props.setStart(true) : props.countCurrentElement === props.text.length - 1 && props.setStart(false)
+      props.countCurrentElement === 0 ? dispatch(setStart(true)) : props.countCurrentElement === props.text.length - 1 && dispatch(setStart(false))
       props.setCountCurrentElement(props.countCurrentElement + 1)
     }
     else if (props.countCurrentElement !== 0 && props.countCurrentElement !== props.text.length) {
@@ -60,8 +62,6 @@ const MainForm = (props) => {
       </p>
       <StopWatch
         text={props.text}
-        start={props.start}
-        setStart={props.setStart}
         setCountCurrentElement={props.setCountCurrentElement}
         countMistakes={props.countMistakes}
         countCurrentElement={props.countCurrentElement}

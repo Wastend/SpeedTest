@@ -3,8 +3,11 @@ import { useGetTextQuery } from '../../app/configs/ReceiveData'
 import './MainPage.scss'
 import MainSettings from './MainSettings'
 import MainForm from './MainForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { setStart } from '../../app/data/dataReducer'
 
 const MainPage = () => {
+  const dispatch = useDispatch()
   const [text, setText] = useState('') //Выводимый текст
   const [countCurrentElement, setCountCurrentElement] = useState(0)
   const [countForApi, setCountForApi] = useState(10) //Количество предложений для получения с сервера
@@ -15,10 +18,9 @@ const MainPage = () => {
   const [hasMistake, setHasMistake] = useState(false) //Ошибся ли пользователь на данном символе
   const [countMistakes, setCountMistakes] = useState(0) //Общее число ошибок
   const { data = {}, refetch } = useGetTextQuery(countForApi) //данные с апи
-  const [start, setStart] = useState(false) // Начало выполнения теста
 
   async function sendRequest() { //Отправить запрос на API
-    setStart(false)
+    dispatch(setStart(false))
     setCountCurrentElement(0)
     if (selectedSetting === 1) {
       await setCountForApi(6)
@@ -76,8 +78,6 @@ const MainPage = () => {
         setHasMistake={setHasMistake}
         countMistakes={countMistakes}
         setCountMistakes={setCountMistakes}
-        start={start}
-        setStart={setStart}
       />
     </section >
   )
