@@ -5,6 +5,7 @@ import { setStart } from '../../app/data/dataReducer'
 
 const MainForm = (props) => {
   const dispatch = useDispatch()
+  const text = useSelector(state => state.data.text)
   const [enteredText, setEnteredText] = useState('') //Введенный текст
   const [currentElement, setCurrentElement] = useState('') //Текущий символ
   const [unwrittenText, setUnwrittenText] = useState('') //Невведеный текст
@@ -13,23 +14,23 @@ const MainForm = (props) => {
   const windowWidth = window.innerWidth //Размер окна
 
   useEffect(() => { //Изменение отображаемого текста
-    if (props.text !== '' && props.text !== undefined) {
-      const elements = props.text.split('')
+    if (text !== '' && text !== undefined) {
+      const elements = text.split('')
       setEnteredText(elements.slice(0, props.countCurrentElement).join(''))
-      setCurrentElement(props.text[props.countCurrentElement])
+      setCurrentElement(text[props.countCurrentElement])
       setUnwrittenText(elements.slice(props.countCurrentElement + 1, elements.length).join(''))
     }
-  }, [props.text, props.countCurrentElement])
+  }, [text, props.countCurrentElement])
 
   function regex(letter) { //Проверка, что символ является нужным
     if (letter === currentElement) {
       const curTime = new Date()
       setSymbolsInMin(((props.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2))
       props.setHasMistake(false)
-      props.countCurrentElement === 0 ? dispatch(setStart(true)) : props.countCurrentElement === props.text.length - 1 && dispatch(setStart(false))
+      props.countCurrentElement === 0 ? dispatch(setStart(true)) : props.countCurrentElement === text.length - 1 && dispatch(setStart(false))
       props.setCountCurrentElement(props.countCurrentElement + 1)
     }
-    else if (props.countCurrentElement !== 0 && props.countCurrentElement !== props.text.length) {
+    else if (props.countCurrentElement !== 0 && props.countCurrentElement !== text.length) {
       props.setHasMistake(true)
     }
   }
@@ -61,7 +62,6 @@ const MainForm = (props) => {
         <span className='MainForm__text_unwritten'>{unwrittenText}</span>
       </p>
       <StopWatch
-        text={props.text}
         setCountCurrentElement={props.setCountCurrentElement}
         countMistakes={props.countMistakes}
         countCurrentElement={props.countCurrentElement}

@@ -7,6 +7,7 @@ import { setStart } from '../../data/dataReducer'
 const StopWatch = (props) => {
   const dispatch = useDispatch()
   const start = useSelector(state => state.data.start)
+  const text = useSelector(state => state.data.text)
   const [isActive, setIsActive] = useState(false)
   const [isPaused, setIsPaused] = useState(true)
   const [time, setTime] = useState(0)
@@ -62,7 +63,7 @@ const StopWatch = (props) => {
     dispatch(setStart(false))
   }
 
-  const percentageOfErrors = ((1 - props.countMistakes / props.text.length) * 100).toFixed(2)
+  const percentageOfErrors = ((1 - props.countMistakes / text.length) * 100).toFixed(2)
 
   return (
     <section className="Stop-watch">
@@ -73,7 +74,7 @@ const StopWatch = (props) => {
         className='button__send'
         onClick={handleReset}
       >
-        {props.countCurrentElement === props.text.length ? 'Начать сначала' : 'Сбросить'}
+        {props.countCurrentElement === text.length ? 'Начать сначала' : 'Сбросить'}
       </button>
     </section>
   )
