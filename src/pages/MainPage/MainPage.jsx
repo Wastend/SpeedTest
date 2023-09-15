@@ -8,12 +8,13 @@ import { setStart, setText } from '../../app/data/dataReducer'
 
 const MainPage = () => {
   const dispatch = useDispatch()
+  const countWords = useSelector(state => state.settings.countWords) //Необходимое количество слов
+  const countSentences = useSelector(state => state.settings.countSentences) //Необходимое количество предложений
+  const selectedSetting = useSelector(state => state.settings.selectedSetting) //Выбранная настройка
+
   const [countCurrentElement, setCountCurrentElement] = useState(0)
   const [countForApi, setCountForApi] = useState(10) //Количество предложений для получения с сервера
-  const [countSentences, setCountSentences] = useState(0) //Необходимое количество предложений
-  const [textLength, setTextLength] = useState(0) //Необходимое количество слов
-  const [isActiveSettings, setIsActiveSettings] = useState(false) // открыто ли меню настроек
-  const [selectedSetting, setSelectedSetting] = useState(1) // Выбранный ввод
+
   const [hasMistake, setHasMistake] = useState(false) //Ошибся ли пользователь на данном символе
   const [countMistakes, setCountMistakes] = useState(0) //Общее число ошибок
   const { data = {}, refetch } = useGetTextQuery(countForApi) //данные с апи
@@ -25,24 +26,24 @@ const MainPage = () => {
       await setCountForApi(6)
       refetch()
     }
-    else if (selectedSetting === 2) {
+    else if (selectedSetting === 2 && countWords > 0) {
       await setCountForApi(100)
       refetch()
     }
-    else if (selectedSetting === 3) {
+    else if (selectedSetting === 3 && countSentences > 0) {
       await setCountForApi(countSentences)
       refetch()
     }
   }
 
   useEffect(() => { //Подкорректировать текст при получении с API
-    if (data.text !== '' && data.text !== undefined) {
-      const textForText = data.text.replace('—', '-')
+    if (data !== '' && Object.keys(data).length !== 0) {
+      const textForText = data.replace('—', '-')
       if (selectedSetting === 1 || selectedSetting === 3) {
         dispatch(setText(textForText))
       }
       else {
-        const sentences = textForText.split(' ').slice(0, textLength)
+        const sentences = textForText.split(' ').slice(0, countWords)
         dispatch(setText(sentences.join(' ')))
       }
     }
@@ -60,13 +61,6 @@ const MainPage = () => {
     <section className='MainPage'>
       <MainSettings
         selectedSetting={selectedSetting}
-        setSelectedSetting={setSelectedSetting}
-        isActiveSettings={isActiveSettings}
-        setIsActiveSettings={setIsActiveSettings}
-        countSentences={countSentences}
-        setCountSentences={setCountSentences}
-        textLength={textLength}
-        setTextLength={setTextLength}
         sendRequest={sendRequest}
       />
       <MainForm

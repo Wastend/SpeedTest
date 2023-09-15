@@ -9,7 +9,10 @@ export const textApi = createApi({
       query: (number = '') => `&type=sentence&number=${number ? number : 1}`,
       providesTags: () => [{
         type: 'Sentence',
-      }]
+      }],
+      transformResponse: (response) => {
+        return response.text
+      }
     }),
   })
 })

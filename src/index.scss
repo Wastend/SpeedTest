@@ -124,6 +124,16 @@ main {
   font-weight: bold;
 }
 
+.button__send:disabled {
+  background-color: $hover__text;
+  color: $white;
+  cursor: auto;
+}
+
+.text__error {
+  color: $red;
+}
+
 @keyframes setActive {
   0% {
     transform: rotate(45deg);
