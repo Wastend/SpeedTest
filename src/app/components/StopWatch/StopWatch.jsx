@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "./StopWatch.scss"
 import Timer from "./Timer"
 import { useDispatch, useSelector } from 'react-redux'
-import { setCountCurrentElement, setCountMistakes, setStart } from '../../data/dataReducer'
+import { resetData, setStart } from '../../data/dataReducer'
 
 const StopWatch = (props) => {
   const dispatch = useDispatch()
@@ -20,9 +20,7 @@ const StopWatch = (props) => {
       }, 10)
     } else {
       clearInterval(interval)
-      dispatch(setCountCurrentElement(0))
-      dispatch(setCountMistakes(0))
-      props.setSymbolsInMin(0)
+      dispatch(resetData(0))
     }
     return () => {
       clearInterval(interval)
@@ -35,7 +33,7 @@ const StopWatch = (props) => {
   return (
     <section className="Stop-watch">
       <Timer time={time} />
-      <h1 className='Stop-watch__results'>{"Скорость ввода " + props.symbolsInMin}</h1>
+      <h1 className='Stop-watch__results'>{"Скорость ввода " + data.symbolsInMin}</h1>
       <h1 className='Stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
       <button
         className='button__send'

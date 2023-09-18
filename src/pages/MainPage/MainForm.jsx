@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import StopWatch from '../../app/components/StopWatch/StopWatch'
 import { useDispatch, useSelector } from 'react-redux'
-import { setStart, setCountCurrentElement, setCountMistakes } from '../../app/data/dataReducer'
+import { setStart, setCountCurrentElement, setCountMistakes, setSymbolsInMin } from '../../app/data/dataReducer'
 
 const MainForm = () => {
   const dispatch = useDispatch()
@@ -13,7 +13,6 @@ const MainForm = () => {
     unwrittenText: ''
   })
 
-  const [symbolsInMin, setSymbolsInMin] = useState(0) //Количество символов в минуту
   const [startTime, setStartTime] = useState(new Date()) //Время начала теста
   const [hasMistake, setHasMistake] = useState(false) //Ошибся ли пользователь на данном символе
 
@@ -47,9 +46,9 @@ const MainForm = () => {
   function regex(letter) { //Проверка, что символ является нужным
     if (letter === text.currentElement) {
       const curTime = new Date()
-      setSymbolsInMin(((data.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2))
-      setHasMistake(false)
       data.countCurrentElement === 0 ? dispatch(setStart(true)) : data.countCurrentElement === data.text.length - 1 && dispatch(setStart(false))
+      setHasMistake(false)
+      dispatch(setSymbolsInMin(((data.countCurrentElement + 1) / ((curTime.getTime() - startTime.getTime()) / 1000) * 60).toFixed(2)))
       dispatch(setCountCurrentElement(data.countCurrentElement + 1))
     }
     else if (data.countCurrentElement !== 0 && data.countCurrentElement !== data.text.length) {
@@ -83,12 +82,7 @@ const MainForm = () => {
         <span className={`MainForm__text_current${hasMistake ? '_mistake' : ''}`}>{text.currentElement}</span>
         <span className='MainForm__text_unwritten'>{text.unwrittenText}</span>
       </p>
-      <StopWatch
-        startTime={startTime}
-        setStartTime={setStartTime}
-        symbolsInMin={symbolsInMin}
-        setSymbolsInMin={setSymbolsInMin}
-      />
+      <StopWatch setStartTime={setStartTime} />
     </section>
   )
 }

@@ -4,7 +4,8 @@ const initialState = {
   start: false,
   text: '',
   countCurrentElement: 0,
-  countMistakes: 0
+  countMistakes: 0,
+  symbolsInMin: 0
 }
 
 const dataSlice = createSlice({
@@ -23,9 +24,17 @@ const dataSlice = createSlice({
     setCountMistakes: (state, action) => {
       state.countMistakes = action.payload
     },
+    setSymbolsInMin: (state, action) => {
+      state.symbolsInMin = action.payload
+    },
+    resetData: (state) => {
+      state.countCurrentElement = 0
+      state.countMistakes = 0
+      state.symbolsInMin = 0
+    },
   }
 })
 
-export const { setStart, setText, setCountCurrentElement, setCountMistakes } = dataSlice.actions
+export const { setStart, setText, setCountCurrentElement, setCountMistakes, setSymbolsInMin, resetData } = dataSlice.actions
 
 export default dataSlice.reducer
