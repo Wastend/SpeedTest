@@ -2,68 +2,35 @@ import React, { useState, useEffect } from 'react'
 import "./StopWatch.scss"
 import Timer from "./Timer"
 import { useDispatch, useSelector } from 'react-redux'
-import { setStart } from '../../data/dataReducer'
+import { setCountCurrentElement, setCountMistakes, setStart } from '../../data/dataReducer'
 
 const StopWatch = (props) => {
   const dispatch = useDispatch()
-  const start = useSelector(state => state.data.start)
-  const text = useSelector(state => state.data.text)
-  const [isActive, setIsActive] = useState(false)
-  const [isPaused, setIsPaused] = useState(true)
+  const data = useSelector(state => state.data)
+
   const [time, setTime] = useState(0)
 
   useEffect(() => { //Устанавливаем интервал времени
     let interval = null
-    if (isActive && isPaused === false) {
+    setTime(0)
+    if (data.start) {
+      props.setStartTime(new Date())
       interval = setInterval(() => {
         setTime((time) => time + 10)
       }, 10)
     } else {
       clearInterval(interval)
+      dispatch(setCountCurrentElement(0))
+      dispatch(setCountMistakes(0))
+      props.setSymbolsInMin(0)
     }
     return () => {
       clearInterval(interval)
     }
-  }, [isActive, isPaused])
-
-  useEffect(() => { //Включаем и выключаем таймер
-    if (start) {
-      handleStart()
-      props.setStartTime(new Date())
-    }
-    else {
-      handlePause()
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start])
+  }, [data.start])
 
-  useEffect(() => { //Если получили новые данные с API, то сбрасываем
-    if (props.countCurrentElement === 0)
-      handleReset()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.countCurrentElement])
-
-  function handleStart() { //Запускаем таймер
-    setTime(0)
-    setIsActive(true)
-    setIsPaused(false)
-  }
-
-  function handlePause() { //Ставим паузу
-    setIsActive(false)
-    setIsPaused(true)
-  }
-
-  function handleReset() { //Сбрасываем прогресс
-    props.setCountCurrentElement(0)
-    handlePause()
-    setTime(0)
-    props.setCountMistakes(0)
-    props.setSymbolsInMin(0)
-    dispatch(setStart(false))
-  }
-
-  const percentageOfErrors = ((1 - props.countMistakes / text.length) * 100).toFixed(2)
+  const percentageOfErrors = ((1 - data.countMistakes / data.text.length) * 100).toFixed(2)
 
   return (
     <section className="Stop-watch">
@@ -72,9 +39,9 @@ const StopWatch = (props) => {
       <h1 className='Stop-watch__results'>{"Точность ввода " + percentageOfErrors + "%"}</h1>
       <button
         className='button__send'
-        onClick={handleReset}
+        onClick={() => dispatch(setStart(false))}
       >
-        {props.countCurrentElement === text.length ? 'Начать сначала' : 'Сбросить'}
+        {props.countCurrentElement === data.text.length ? 'Начать сначала' : 'Сбросить'}
       </button>
     </section>
   )

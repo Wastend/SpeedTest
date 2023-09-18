@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  countWords: 0,
-  countSentences: 0,
+  countWords: 30,
+  countSentences: 4,
   selectedSetting: 1,
+  countForApi: 10,
   error: ''
 }
 
@@ -29,13 +30,14 @@ const settingsSlice = createSlice({
       regular(state, action.payload, 3, 1, 99)
     },
     setSelectedSetting: (state, action) => {
-      console.log(action.payload);
       if (action.payload === 2) {
         regular(state, state.countWords, 2, 1, 999)
       }
       else if (action.payload === 3) {
         regular(state, state.countSentences, 3, 1, 99)
       }
+      else
+        state.selectedSetting = action.payload
     }
   }
 })

@@ -11,7 +11,7 @@ export const textApi = createApi({
         type: 'Sentence',
       }],
       transformResponse: (response) => {
-        return response.text
+        return response.text.replace('—', '-')
       }
     }),
   })
