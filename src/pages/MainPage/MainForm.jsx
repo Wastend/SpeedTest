@@ -15,8 +15,11 @@ const MainForm = () => {
 
   const [startTime, setStartTime] = useState(new Date()) //Время начала теста
   const [hasMistake, setHasMistake] = useState(false) //Ошибся ли пользователь на данном символе
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth) //Размер окна
 
-  const windowWidth = window.innerWidth //Размер окна
+  window.onresize = function(){ //При изменении размера окна - менять параметр windowWidth
+    setWindowWidth(window.innerWidth)
+  }
 
   useEffect(() => { //Изменение отображаемого текста
     if (data.text !== '' && data.text !== undefined) {
@@ -56,7 +59,7 @@ const MainForm = () => {
     }
   }
 
-  document.onkeypress = function (event) { //Отслеживание нажатия клавиш
+  document.onkeydown = function (event) { //Отслеживание нажатия клавиш
     if (windowWidth >= 768) {
       if (event.key === ' ') {
         event.preventDefault()

@@ -13,7 +13,8 @@ header {
     width: 4rem;
     height: 4rem;
     margin-left: 5vw;
-    -webkit-filter: invert(100%);;
+    -webkit-filter: invert(100%);
+    ;
   }
 
   & .title {
@@ -21,8 +22,6 @@ header {
   }
 
   @media(max-width:375px) {
-    & {
-      justify-content: center;
-    }
+    justify-content: center;
   }
 }

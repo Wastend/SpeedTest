@@ -56,10 +56,8 @@
     }
 
     @media(max-width:768px) {
-      & {
-        flex-direction: column;
-        align-items: center;
-      }
+      flex-direction: column;
+      align-items: center;
 
       &__text {
         order: 2;
@@ -69,7 +67,6 @@
     }
 
     @media(max-width:375px) {
-
       &__text_entered,
       &__text_current,
       &__text_unwritten {
@@ -150,10 +147,8 @@
     }
 
     @media(max-width:768px) {
-      & {
-        align-items: center;
-        gap: 3rem;
-      }
+      align-items: center;
+      gap: 3rem;
 
       &__header {
         align-self: center;
@@ -193,10 +188,7 @@
   }
 
   @media(max-width: 1440px) {
-    & {
-      margin: 2rem 3vw;
-    }
-
+    margin: 2rem 3vw;
   }
 
   @media(max-width: 375px) {
